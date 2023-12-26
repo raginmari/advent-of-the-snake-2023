@@ -5,22 +5,9 @@ from enum import Enum
 # change working directory to script directory
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
-# card labels: A, K, Q, T, 9, 8, 7, 6, 5, 4, 3, 2, J
-label_map = {
-    'A': 'Z', 
-    'K': 'Y',
-    'Q': 'X',
-    'T': 'W',
-    '9': 'V',
-    '8': 'U',
-    '7': 'T',
-    '6': 'S',
-    '5': 'R',
-    '4': 'Q',
-    '3': 'P',
-    '2': 'O',
-    'J': 'N', # joker is the lowest card
-}
+# card labels: A, K, Q, T, 9, 8, 7, 6, 5, 4, 3, 2, J (joker is lowest card)
+ordered_labels = "AKQT98765432J"[::-1]
+label_map = {c: chr(65 + i) for i, c in enumerate(ordered_labels)}
 
 class HandType(Enum):
     # values correspond to hand's strength
@@ -49,7 +36,7 @@ class Play:
             
         unique_labels = len(labels.keys())
         highest_label_count = jokers + (sorted(labels.values(), key=lambda x: -x)[0] if labels else 0)
-        
+
         if highest_label_count == 5:
             return HandType.FIVE_OF_A_KIND
         elif highest_label_count == 4:
