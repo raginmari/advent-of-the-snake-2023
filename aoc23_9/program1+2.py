@@ -24,6 +24,9 @@ def solve(input: List[str]) -> int:
     result = 0
 
     for line in input:
+        #
+        # NOTE: in order to solve part 2, just reverse the list of numbers ¯\_(ツ)_/¯
+        #
         numbers = list(map(lambda x: int(x), re.findall(r"[-\d]+", line)))
         result += predict_next_number(numbers)
 
